@@ -4,13 +4,12 @@ var webpack = require('webpack');
 module.exports = {
   devtool: 'source-map',
   entry: [
-    
     './client/main'
   ],
   output: {
-    path: path.join(__dirname, '/public/dist'),
+    path: path.join(__dirname, 'dist'),
     filename: 'bundle.js',
-    publicPath: '/dist/'
+    publicPath: '/static/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
@@ -31,10 +30,20 @@ module.exports = {
       {
         test: /\.js$/,
         loaders: ['babel'],
+      },
+      // React
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
         include: [
           path.join(__dirname, 'public'),
           path.join(__dirname, 'client'),
         ]
+      },
+      // CSS
+      {
+        test: /\.css$/,
+        loader: 'style-loader!css-loader'
       },
       // Stylus
       {
