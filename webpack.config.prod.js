@@ -1,0 +1,52 @@
+var path = require('path');
+var webpack = require('webpack');
+
+module.exports = {
+  devtool: 'source-map',
+  entry: [
+    
+    './client/main'
+  ],
+  output: {
+    path: path.join(__dirname, '/public/dist'),
+    filename: 'bundle.js',
+    publicPath: '/dist/'
+  },
+  plugins: [
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': "'production'"
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compressor: {
+        warnings: false
+      }
+    })
+  ],
+  module: {
+    loaders: [
+      // JavaScript
+      {
+        test: /\.js$/,
+        loaders: ['babel'],
+        include: [
+          path.join(__dirname, 'public'),
+          path.join(__dirname, 'client'),
+        ]
+      },
+      // Stylus
+      {
+        test: /\.styl$/,
+        include: path.join(__dirname, 'public'),
+        loader: 'style-loader!css-loader!stylus-loader'
+      },
+      // Images and Fonts
+      {
+        test   : /\.(png|jpg|gif|ttf|eot|svg|woff(2)?)(\?[a-z0-9=&.]+)?$/,
+        loader : 'file-loader'
+      }
+    ]
+  }
+};
