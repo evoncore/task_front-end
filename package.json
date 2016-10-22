@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build:webpack": "SET \"NODE_ENV=production\" && webpack --config webpack.config.prod.js",
+    "build:webpack": "NODE_ENV=production && webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
     "clean": "rimraf dist",
     "start": "./node_modules/.bin/babel-node server"
